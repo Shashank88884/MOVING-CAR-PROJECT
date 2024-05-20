@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <title>JS ex</title>
+        <style>
+            body{
+                margin: 0;
+            }
+            div{
+                height: 80px;
+                padding: 10px;
+                padding-right: 60px;
+                background-color: antiquewhite;
+            }
+            #car{
+                float: left;
+                height: 50px;
+                margin-top: 40px;
+                position: relative;
+            }
+            #tree{
+                float: right;
+                height: 80px;
+                transition: 1s;
+            }
+            button{
+                margin: 20px 10px;
+            }
+        </style>
+    </head>
+    <body onresize="resize()">
+        <h1>Car Move Project:</h1>
+        <div>
+            <img id="car" src="car.png" alt="">
+            <img id="tree" src="tree.png" alt="">
+        </div>
+        <button onclick="f1()">Forward</button>
+        <button onclick="f2()">Backward</button>
+        <button onclick="f3()">Stop</button>
+        <button onclick="f4()">Reset</button>
+        <button onclick="f5()">Play Music</button>
+        <button onclick="f6()">Pause Music</button>
+    </body>
+    <script>
+        var car=document.getElementById("car");
+        var tree=document.getElementById("tree");
+
+        var x=0;
+        var i;
+        var w=window.innerWidth -160;
+
+        var a = new Audio("Geet Banuga - Kaka.mp3");
+        function f1(){
+            clearInterval(i);
+            i=setInterval(() => {
+                if(x<w){
+                    x +=1;
+                    car.style.left=x+"px";
+                }else{
+                    clearInterval(i);
+                    tree.style.transform="rotate(45deg) translate(20px,-20px)";
+                    car.src = "car2.png";
+
+                    var sound = new Audio("Car Accident.mp3");
+                    sound.play();
+                }
+            }, 1);
+        }
+        function f2(){
+            clearInterval(i);
+            tree.style.transform="rotate(0deg) translate(0px,0px)";
+            car.src = "car.png";
+            i=setInterval(() => {
+                if(x>0){
+                    x -=1;
+                    car.style.left=x+"px";
+                }else{
+                    clearInterval(i);
+                }
+            }, 1);
+        }
+        function f3(){
+            clearInterval(i);
+        }
+        function f4(){
+            clearInterval(i);
+            tree.style.transform="rotate(0deg) translate(0px,0px)";
+            car.src = "car.png";
+            x=0;
+            car.style.left=x+"px";
+            a.pause();
+        }
+        function resize(){
+            w=window.innerWidth-160;
+            location.reload();
+        }
+
+        function f5(){
+            a.play();
+        }
+        function f6(){
+            a.pause();
+        }
+    </script>
+</html>
